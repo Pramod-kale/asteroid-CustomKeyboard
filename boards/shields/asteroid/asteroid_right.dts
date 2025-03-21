@@ -1,0 +1,32 @@
+#include "asteroid.dts"
+
+/ {
+    compatible = "zmk,split-bluetooth";
+    chosen {
+        zmk,split-role = "peripheral";
+        zmk,battery = &battery_0;
+    };
+
+    battery_0: battery {
+        compatible = "zmk,battery-nrf-vddh";
+        label = "BATTERY";
+        voltage-divider-ohms = <100000 470000>;
+        sense-gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>; // P0.11 (011)
+    };
+
+    &kscan0 {
+        row-gpios
+            = <&gpio0 31 GPIO_ACTIVE_HIGH>  // P0.31 (031)
+            , <&gpio0 29 GPIO_ACTIVE_HIGH>  // P0.29 (029)
+            , <&gpio0 2 GPIO_ACTIVE_HIGH>   // P0.02 (002)
+            , <&gpio0 10 GPIO_ACTIVE_HIGH>  // P0.10 (010)
+            , <&gpio0 9 GPIO_ACTIVE_HIGH>;  // P0.09 (009)
+        col-gpios
+            = <&gpio1 15 GPIO_ACTIVE_HIGH>  // P1.15 (115)
+            , <&gpio1 13 GPIO_ACTIVE_HIGH>  // P1.13 (113)
+            , <&gpio1 11 GPIO_ACTIVE_HIGH>  // P1.11 (111)
+            , <&gpio1 0 GPIO_ACTIVE_HIGH>   // P1.00 (100)
+            , <&gpio1 4 GPIO_ACTIVE_HIGH>   // P1.04 (104)
+            , <&gpio1 6 GPIO_ACTIVE_HIGH>;  // P1.06 (106)
+    };
+};
