@@ -5,6 +5,7 @@
     chosen {
         zmk,split-role = "peripheral";
         zmk,battery = &battery_0;
+        zmk,rgb_underglow = &rgb_underglow;
     };
 
     battery_0: battery {
@@ -12,6 +13,16 @@
         label = "BATTERY";
         voltage-divider-ohms = <100000 470000>;
         sense-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; // P0.31 (031)
+    };
+
+    rgb_underglow: rgb_underglow {
+        compatible = "zmk,rgb-underglow";
+        label = "RGB_UNDERGLOW";
+        led0 {
+            gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>; // P1.08 (108) - Adjust if your LED is on a different pin
+        };
+        chain-length = <1>;
+        animations = "battery-status";
     };
 
     &kscan0 {
