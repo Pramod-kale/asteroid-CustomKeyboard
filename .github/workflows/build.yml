@@ -11,4 +11,3 @@ jobs:
     uses: zmk-org/zmk/.github/workflows/build.yml@main
     with:
       build_matrix_file: build.yaml
-      cmake_args: -DSHIELD_ROOT=/__w/asteroid-CustomKeyboard/asteroid-CustomKeyboard/boards/shields
