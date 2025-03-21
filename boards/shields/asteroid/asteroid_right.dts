@@ -11,18 +11,18 @@
         compatible = "zmk,battery-nrf-vddh";
         label = "BATTERY";
         voltage-divider-ohms = <100000 470000>;
-        sense-gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>; // P0.11 (011)
+        sense-gpios = <&gpio0 31 GPIO_ACTIVE_HIGH>; // P0.31 (031)
     };
 
     &kscan0 {
         row-gpios
-            = <&gpio0 31 GPIO_ACTIVE_HIGH>  // P0.31 (031)
+            = <&gpio0 11 GPIO_ACTIVE_HIGH>  // P0.11 (011) - Moved from P0.31
             , <&gpio0 29 GPIO_ACTIVE_HIGH>  // P0.29 (029)
             , <&gpio0 2 GPIO_ACTIVE_HIGH>   // P0.02 (002)
             , <&gpio0 10 GPIO_ACTIVE_HIGH>  // P0.10 (010)
             , <&gpio0 9 GPIO_ACTIVE_HIGH>;  // P0.09 (009)
         col-gpios
-            = <&gpio1 15 GPIO_ACTIVE_HIGH>  // P1.15 (115)
+            = <&gpio1 1 GPIO_ACTIVE_HIGH>   // P1.01 (101) - Moved from P1.15
             , <&gpio1 13 GPIO_ACTIVE_HIGH>  // P1.13 (113)
             , <&gpio1 11 GPIO_ACTIVE_HIGH>  // P1.11 (111)
             , <&gpio1 0 GPIO_ACTIVE_HIGH>   // P1.00 (100)
