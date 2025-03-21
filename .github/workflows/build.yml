@@ -6,7 +6,36 @@ on:
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v3.5.0
-    with:
-      build_matrix_file: build.yaml
-      cmake_args: -DSHIELD_ROOT="${{ github.workspace }}/boards/shields"
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:3.5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: West Init and Update
+        run: |
+          west init -l config
+          west update
+
+      - name: Build Asteroid Left
+        run: |
+          west build -s zmk/app -d build/asteroid_left -b nice_nano_v2 -- -DZMK_CONFIG="${{ github.workspace }}/config" -DSHIELD=asteroid_left -DSHIELD_ROOT="${{ github.workspace }}/boards/shields"
+
+      - name: Build Asteroid Right
+        run: |
+          west build -s zmk/app -d build/asteroid_right -b nice_nano_v2 -- -DZMK_CONFIG="${{ github.workspace }}/config" -DSHIELD=asteroid_right -DSHIELD_ROOT="${{ github.workspace }}/boards/shields"
+
+      - name: Rename Left Artifact
+        run: mv build/asteroid_left/zephyr/zmk.uf2 asteroid_left.uf2
+
+      - name: Rename Right Artifact
+        run: mv build/asteroid_right/zephyr/zmk.uf2 asteroid_right.uf2
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            asteroid_left.uf2
+            asteroid_right.uf2
